@@ -3,6 +3,7 @@ package mx.com.site.services.facade.impl;
 import mx.com.site.commons.exceptions.SitePeopleException;
 import mx.com.site.commons.to.UserTypeTO;
 import mx.com.site.commons.to.UsersTO;
+import mx.com.site.commons.util.ExceptionID;
 import mx.com.site.commons.util.SiteUtilException;
 import mx.com.site.services.facade.ILoginAppFacade;
 import mx.com.site.services.service.ILoginUserService;
@@ -29,8 +30,10 @@ public class LoginAppFacadeImpl implements ILoginAppFacade {
     @Override
     public UsersTO getUserByEmail(String email) {
         try {
-            return this.loginUserService.getUserByEmail(SiteUtilException.defaultNullable(email,
-                    () ->  new  NullPointerException("no trae el valor email favor de verificar")));
+            return this.loginUserService.getUserByEmail(SiteUtilException.ofDefaultNullable(email,
+                    () ->  new  NullPointerException(
+                            SiteUtilException.messageException(
+                                    ExceptionID.NULL_POINTER_EXCEPTION_MESSAGE.getMessage(),"getUserByEmail"))));
         }catch (Exception e){
             throw new SitePeopleException(e.getMessage(),e);
         }
@@ -38,7 +41,13 @@ public class LoginAppFacadeImpl implements ILoginAppFacade {
 
     @Override
     public void saveUser(UsersTO user) {
-        this.loginUserService.saveUser(user);
+        try{
+            this.loginUserService.saveUser(SiteUtilException.ofDefaultNullable(user,
+                    () -> new NullPointerException(ExceptionID.NULL_POINTER_EXCEPTION_MESSAGE.getMessage())));
+        }catch (Exception e){
+            throw new SitePeopleException(e.getMessage(),e);
+        }
+
     }
 
 

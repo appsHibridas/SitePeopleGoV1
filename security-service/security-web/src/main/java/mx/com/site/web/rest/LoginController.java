@@ -27,7 +27,6 @@ public class LoginController {
 
     @RequestMapping(value = "/getUserByEmail", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<UsersTO> getUserByEmail(@RequestParam(value = "email") String email) {
-        String data ="";
         return new ResponseEntity<>(this.loginAppFacade.getUserByEmail(email), HttpStatus.OK);
     }
 

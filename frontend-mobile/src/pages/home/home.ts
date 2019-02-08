@@ -6,36 +6,5 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'home.html'
 })
 
-export class HomePage {
-data:any[];
-
-
-
-
-
-
-data2:string[];
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
+export class HomePage {}
 
