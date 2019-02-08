@@ -1,0 +1,7 @@
+{
+  "name": "SitePeopleMobile",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

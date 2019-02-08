@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:sqlserver://sql7002.site4now.net;databasename=DB_A4549F_sitePeople
+    username: DB_A4549F_sitePeople_admin
+    password: Passw0rd
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    database-platform: org.hibernate.dialect.SQLServer2012Dialect
+    show-sql: true
+server:
+  port: 8095
