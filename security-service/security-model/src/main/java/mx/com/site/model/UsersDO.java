@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "dt_users")
-public class UsersDO {
+public class UsersDO extends BaseDateDO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,8 @@ public class UsersDO {
 
     @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="id_user_type")
-    private UserTypeDO id_user_type;
+    private UserTypeDO idUserType;
+
 
     public Long getIdUser() {
         return idUser;
@@ -67,11 +68,11 @@ public class UsersDO {
         this.userPassword = userPassword;
     }
 
-    public UserTypeDO getId_user_type() {
-        return id_user_type;
+    public UserTypeDO getIdUserType() {
+        return idUserType;
     }
 
-    public void setId_user_type(UserTypeDO id_user_type) {
-        this.id_user_type = id_user_type;
+    public void setIdUserType(UserTypeDO idUserType) {
+        this.idUserType = idUserType;
     }
 }

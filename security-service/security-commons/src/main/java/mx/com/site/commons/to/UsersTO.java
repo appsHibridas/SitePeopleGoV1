@@ -2,7 +2,7 @@ package mx.com.site.commons.to;
 
 import java.io.Serializable;
 
-public class UsersTO implements Serializable {
+public class UsersTO extends BaseDateTO implements Serializable {
 
 
     private Long idUser;
@@ -10,7 +10,7 @@ public class UsersTO implements Serializable {
     private String surnames;
     private String email;
     private String userPassword;
-    private UserTypeTO id_user_type;
+    private UserTypeTO idUserType;
 
     public Long getIdUser() {
         return idUser;
@@ -52,11 +52,11 @@ public class UsersTO implements Serializable {
         this.userPassword = userPassword;
     }
 
-    public UserTypeTO getId_user_type() {
-        return id_user_type;
+    public UserTypeTO getIdUserType() {
+        return idUserType;
     }
 
-    public void setId_user_type(UserTypeTO id_user_type) {
-        this.id_user_type = id_user_type;
+    public void setIdUserType(UserTypeTO idUserType) {
+        this.idUserType = idUserType;
     }
 }

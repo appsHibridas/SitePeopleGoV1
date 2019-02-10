@@ -17,7 +17,15 @@ public class SiteUtilException {
         return value;
     }
 
-    public static <T>  T ofEntityOrCollectionNullable(T value,String message)  {
+    public static <T>  T ofEntityNullable(T value,String message)  {
+        if (null == value) {
+            ExceptionMessage.EXCEPTION_MESSAGE.setMessage(message);
+            throw new NullPointerException(messageException());
+        }
+        return value;
+    }
+
+    public static <T>  T ofCollectionNullable(T value,String message)  {
         if (null == value || ((Collection) value).isEmpty() ) {
             ExceptionMessage.EXCEPTION_MESSAGE.setMessage(message);
             throw new NullPointerException(messageException());

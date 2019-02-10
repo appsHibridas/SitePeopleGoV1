@@ -43,7 +43,7 @@ public class LoginAppFacadeImpl implements ILoginAppFacade {
     @Override
     public void saveUser(UsersTO user) {
         try {
-            this.loginUserService.saveUser(SiteUtilException.ofEntityOrCollectionNullable(user, MESSAGE_EXCEPTION_SAVE_EMAIL));
+            this.loginUserService.saveUser(SiteUtilException.ofEntityNullable(user, MESSAGE_EXCEPTION_SAVE_EMAIL));
         } catch (Exception e) {
             throw new SitePeopleException(e.getMessage(), e);
         }
