@@ -1,24 +1,35 @@
 package mx.com.site.commons.util;
+
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Optional;
-import java.util.function.Supplier;
+
+import static mx.com.site.commons.util.Constants.EMPTY;
 
 public class SiteUtilException {
 
-    public static <X extends RuntimeException, T > T ofDefaultNullable(T value, Supplier<? extends X> exceptionSupplier) throws X {
-        if (!Optional.ofNullable(value).isPresent() || value.equals("")) {
-            throw exceptionSupplier.get();
+
+    public static  String ofStringNullableOrEmpty(String value, String message)  {
+        if (null == value || value.equals("")) {
+            ExceptionMessage.EXCEPTION_MESSAGE.setMessage(message);
+            throw new NullPointerException(messageException());
         }
         return value;
     }
 
-    public static String messageException(String message,String method){
+    public static <T>  T ofEntityOrCollectionNullable(T value,String message)  {
+        if (null == value || ((Collection) value).isEmpty() ) {
+            ExceptionMessage.EXCEPTION_MESSAGE.setMessage(message);
+            throw new NullPointerException(messageException());
+        }
+        return value;
+    }
+
+    private static String messageException(){
         StringBuilder msj = new StringBuilder();
-        msj.append(message)
-                .append("en el")
-                .append(method)
+        msj.append(ExceptionMessage.EXCEPTION_MESSAGE.getMessage())
+                .append(EMPTY)
                 .append(LocalDate.now().toString());
         return Optional.of(msj).get().toString();
     }
-
 }

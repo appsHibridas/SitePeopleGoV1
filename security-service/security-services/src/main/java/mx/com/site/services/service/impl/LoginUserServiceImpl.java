@@ -3,6 +3,7 @@ package mx.com.site.services.service.impl;
 import mx.com.site.commons.exceptions.SitePeopleException;
 import mx.com.site.commons.to.UserTypeTO;
 import mx.com.site.commons.to.UsersTO;
+import mx.com.site.commons.util.SiteUtilException;
 import mx.com.site.model.UsersDO;
 import mx.com.site.persistence.UserTypeDAO;
 import mx.com.site.persistence.UsersDAO;
@@ -15,8 +16,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static mx.com.site.commons.util.Constants.EXCEPTION_MESSAGE_GET_ALL_TYPE_USERS;
+import static mx.com.site.commons.util.Constants.EXCEPTION_MESSAGE_GET_USER_BY_EMAIL;
+import static mx.com.site.commons.util.Constants.EXCEPTION_MESSAGE_SAVE_USER;
+
 @Service
 public class LoginUserServiceImpl implements ILoginUserService {
+
 
     @Autowired
     UserTypeDAO userTypeDAO;
@@ -29,20 +35,19 @@ public class LoginUserServiceImpl implements ILoginUserService {
 
     @Override
     public List<UserTypeTO> getAllTypeUsers() {
-      var allUsers = (List<UserTypeTO>) this.modelMapper.map(this.userTypeDAO.findAll(),new TypeToken<List<UserTypeTO>>(){}.getType());
-      return allUsers;
+      var allUsers = this.modelMapper.map(this.userTypeDAO.findAll(),new TypeToken<List<UserTypeTO>>(){}.getType());
+      return (List<UserTypeTO>) SiteUtilException.ofEntityOrCollectionNullable(allUsers, EXCEPTION_MESSAGE_GET_ALL_TYPE_USERS);
     }
 
     @Override
     public UsersTO getUserByEmail(String email) {
-        var userDB = this.usersDAO.findByEmail(email);
-        Optional.ofNullable(userDB).orElseThrow(()-> new NullPointerException("No se encontro el registro en la base de datos"));
+        var userDB = SiteUtilException.ofEntityOrCollectionNullable(this.usersDAO.findByEmail(email), EXCEPTION_MESSAGE_GET_USER_BY_EMAIL);
         return  this.modelMapper.map(userDB,UsersTO.class);
     }
 
     @Override
     public void saveUser(UsersTO user) {
-        this.usersDAO.save(this.modelMapper.map(user, UsersDO.class));
+        SiteUtilException.ofEntityOrCollectionNullable(this.usersDAO.save(this.modelMapper.map(user, UsersDO.class)), EXCEPTION_MESSAGE_SAVE_USER);
     }
 
 }
